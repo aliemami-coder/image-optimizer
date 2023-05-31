@@ -1,4 +1,4 @@
-name: Build Executable
+name: Build and Release Executable
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
   pull_request:
     branches:
       - master
-
   workflow_dispatch:
 
 jobs:
@@ -38,3 +37,18 @@ jobs:
       with:
         name: Executable
         path: dist/  # Replace with the directory where your executable is generated
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v1.0.0  # Replace with the desired tag name
+        release_name: Release 1.0.0  # Replace with the desired release name
+        body: |
+          Release notes and description for the release.
+        draft: false
+        prerelease: false
+        files: |
+          dist/  # Replace with the directory where your executable is generated
