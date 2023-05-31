@@ -30,11 +30,11 @@ jobs:
     - name: Build executable
       run: |
         python setup.py build_ext --inplace
-        pyinstaller --onefile main2.pyx
-        pyinstaller main2.spec  # Replace with the appropriate command or file name
+        pyinstaller --onefile --noconsole --name image-optimizer main2.pyx
+        pyinstaller image-optimizer.spec  # Replace with the appropriate command or file name
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: Executable
-        path: dist/main2.exe  # Replace with the directory where your executable is generated
+        path: dist/  # Replace with the directory where your executable is generated
