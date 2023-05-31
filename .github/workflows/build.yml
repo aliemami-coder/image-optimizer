@@ -1,0 +1,39 @@
+name: Build Executable
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x  # Replace with the desired Python version (e.g., 3.9)
+
+    - name: Install dependencies
+      run: |
+        pip install cython
+        pip install pyinstaller
+
+    - name: Build executable
+      run: |
+        python setup.py build_ext --inplace
+        pyinstaller --onefile main2.pyx
+        pyinstaller --onefile --noconsole --name image-optimizer main2.spec  # Replace with the appropriate command or file name
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Executable
+        path: dist/image-optimizer.exe  # Replace with the directory where your executable is generated
