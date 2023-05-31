@@ -30,8 +30,8 @@ This application allows you to compress multiple images simultaneously, reducing
 ## Usage
 
 1. Run the application:
-```python
-python image_compression.py
+```
+python main2.py
 ```
 
 2. Click on the "Select Images" button to choose the images you want to compress.
