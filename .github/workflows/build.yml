@@ -3,10 +3,10 @@ name: Build Executable
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
   workflow_dispatch:
 
@@ -25,17 +25,16 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install cython
-        pip install pyinstaller
+        pip install cython pyinstaller PyQt5 Pillow
 
     - name: Build executable
       run: |
         python setup.py build_ext --inplace
         pyinstaller --onefile main2.pyx
-        pyinstaller --onefile --noconsole --name image-optimizer main2.spec  # Replace with the appropriate command or file name
+        pyinstaller --onefile --noconsole main2.spec  # Replace with the appropriate command or file name
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: Executable
-        path: dist/image-optimizer  # Replace with the directory where your executable is generated
+        path: dist/main2.exe  # Replace with the directory where your executable is generated
