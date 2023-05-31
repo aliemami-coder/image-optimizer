@@ -3,10 +3,10 @@ name: Build and Release Executable
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
   workflow_dispatch:
 
 jobs:
@@ -50,5 +50,13 @@ jobs:
           Release notes and description for the release.
         draft: false
         prerelease: false
-        files: |
-          dist/  # Replace with the directory where your executable is generated
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: dist/image-optimizer.exe  # Replace with the path to your executable file
+        asset_name: image-optimizer.exe  # Replace with the desired name for the asset
+        asset_content_type: application/octet-stream
