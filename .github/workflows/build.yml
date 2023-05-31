@@ -31,7 +31,7 @@ jobs:
       run: |
         python setup.py build_ext --inplace
         pyinstaller --onefile main2.pyx
-        pyinstaller --onefile --noconsole main2.spec  # Replace with the appropriate command or file name
+        pyinstaller main2.spec  # Replace with the appropriate command or file name
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
